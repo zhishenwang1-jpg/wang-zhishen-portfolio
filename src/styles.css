@@ -27,16 +27,18 @@ a:focus-visible .roll-original{transform:translateY(-115%)}a:focus-visible .roll
 .project-info .arrow,.contact-title>span{display:inline-block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
 .project-link:focus-visible h3{transform:translateX(8px)}
 .contact-title:focus-visible>span{transform:translate(8px,-8px)}
-.wordmark path{opacity:1;animation:glyph-entry .95s cubic-bezier(.2,.75,.2,1) both;animation-delay:var(--glyph-delay);transition:opacity .35s}
+.wordmark{cursor:crosshair}
+.wordmark path{--glyph-x:0px;--glyph-y:0px;--glyph-scale:1;--glyph-rotate:0deg;--glyph-energy:0;--glyph-shadow-x:0px;--glyph-shadow-y:0px;opacity:1;transform-box:fill-box;transform-origin:center;translate:var(--glyph-x) var(--glyph-y);scale:var(--glyph-scale);rotate:var(--glyph-rotate);fill:color-mix(in srgb,currentColor,#a42522 calc(var(--glyph-energy)*100%));filter:drop-shadow(var(--glyph-shadow-x) var(--glyph-shadow-y) 0 rgba(164,37,34,.38));animation:glyph-entry .95s cubic-bezier(.2,.75,.2,1) both;animation-delay:var(--glyph-delay);transition:opacity .35s,translate .16s cubic-bezier(.22,.8,.2,1),scale .2s cubic-bezier(.22,.8,.2,1),rotate .2s cubic-bezier(.22,.8,.2,1),fill .2s,filter .2s;will-change:translate,scale,rotate}
+.wordmark.is-reacting path{animation:none}
 @keyframes glyph-entry{from{opacity:0;translate:0 25px}to{opacity:1;translate:0 0}}
 @media(hover:hover) and (pointer:fine){
  a:hover .roll-original{transform:translateY(-115%)}a:hover .roll-echo{transform:translateY(0)}
  .project-link:hover h3{transform:translateX(8px)}.project-link:hover h3>span{transform:translateX(7px)}.project-link:hover .arrow{transform:translate(4px,-4px)}
  .contact-title:hover>span{transform:translate(8px,-8px)}
- .wordmark:has(path:hover) path{opacity:.25}.wordmark:has(path:hover) path:hover{opacity:1}
+ .wordmark:has(path:hover) path{opacity:.42}.wordmark:has(path:hover) path:hover{opacity:1}
  .marquee:hover>div{animation-play-state:paused}
 }
-@media(prefers-reduced-motion:reduce){.text-char{opacity:1;transform:none}.roll-original,.roll-echo,.project-info h3,.project-info h3>span,.project-info .arrow,.contact-title>span{transform:none!important}.roll-echo{display:none}.wordmark path{opacity:1!important}}
+@media(prefers-reduced-motion:reduce){.text-char{opacity:1;transform:none}.roll-original,.roll-echo,.project-info h3,.project-info h3>span,.project-info .arrow,.contact-title>span{transform:none!important}.roll-echo{display:none}.wordmark{cursor:auto}.wordmark path{opacity:1!important;translate:0 0!important;scale:1!important;rotate:0deg!important;fill:currentColor!important;filter:none!important}}
 /* Native HTML reconstruction of the personal introduction PDF. */
 .profile-page{background:#fff;color:#111;padding:0;scroll-margin-top:0;font-family:'Manrope','Microsoft YaHei',sans-serif}
 .profile-sheet{position:relative;width:100%;max-width:1600px;aspect-ratio:1600/1593;margin:0 auto}
