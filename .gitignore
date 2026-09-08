@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.wrangler/
+.DS_Store
+*.log
+.env
+.env.*
+
+# Large original design sources are kept locally and are not required at runtime.
+/项目1/
+/项目2/
+/项目3/
+/项目4/
+/*.pdf
+
