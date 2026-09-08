@@ -230,6 +230,43 @@ window.addEventListener('hashchange',()=>{revealObserver.disconnect();prepareTex
 motionPreference.addEventListener('change',()=>{if(motionPreference.matches)document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('text-visible'));});
 document.querySelectorAll('.wordmark path').forEach((path,index)=>path.style.setProperty('--glyph-delay',`${index*45}ms`));
 
+const homeWordmark=document.querySelector('.wordmark');
+const homeGlyphs=[...homeWordmark.querySelectorAll('path')];
+function resetHomeWordmark(){
+  homeWordmark.classList.remove('is-reacting');
+  homeGlyphs.forEach(glyph=>{
+    glyph.style.setProperty('--glyph-x','0px');
+    glyph.style.setProperty('--glyph-y','0px');
+    glyph.style.setProperty('--glyph-scale','1');
+    glyph.style.setProperty('--glyph-rotate','0deg');
+    glyph.style.setProperty('--glyph-energy','0');
+    glyph.style.setProperty('--glyph-shadow-x','0px');
+    glyph.style.setProperty('--glyph-shadow-y','0px');
+  });
+}
+homeWordmark.addEventListener('pointermove',event=>{
+  if(motionPreference.matches||event.pointerType==='touch') return;
+  homeWordmark.classList.add('is-reacting');
+  const field=Math.max(150,homeWordmark.getBoundingClientRect().width*.16);
+  homeGlyphs.forEach((glyph,index)=>{
+    const box=glyph.getBoundingClientRect();
+    const dx=event.clientX-(box.left+box.width/2);
+    const dy=event.clientY-(box.top+box.height/2);
+    const distance=Math.hypot(dx,dy);
+    const energy=Math.max(0,1-distance/field);
+    const direction=index%2===0?1:-1;
+    glyph.style.setProperty('--glyph-x',`${dx*.055*energy}px`);
+    glyph.style.setProperty('--glyph-y',`${dy*.08*energy-10*energy}px`);
+    glyph.style.setProperty('--glyph-scale',`${1+energy*.1}`);
+    glyph.style.setProperty('--glyph-rotate',`${direction*energy*2.8}deg`);
+    glyph.style.setProperty('--glyph-energy',energy.toFixed(3));
+    glyph.style.setProperty('--glyph-shadow-x',`${dx*-.023*energy}px`);
+    glyph.style.setProperty('--glyph-shadow-y',`${dy*-.026*energy}px`);
+  });
+});
+homeWordmark.addEventListener('pointerleave',resetHomeWordmark);
+motionPreference.addEventListener('change',resetHomeWordmark);
+
 document.querySelectorAll('.cover-stage').forEach(stage=>{
   stage.addEventListener('pointermove',event=>{
     if (motionPreference.matches || event.pointerType === 'touch') return;
